@@ -1,17 +1,36 @@
-mermaid```
+```mermaid
 sequenceDiagram
     participant browser
     participant server
 
-    Note over browser: User types a note in the text field
-    Note over browser: User clicks the Save button
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: HTML document
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: the css file
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: the JavaScript file
+    deactivate server
+
+    Note right of browser: The browser starts executing the JavaScript code that fetches the JSON from the server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: [{ "content": "HTML is easy", "date": "2024-10-10" }, ... ]
+    deactivate server
+
+    Note over browser: User writes a note in the text field and clicks the Save button
 
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate server
-    Note right of server: Server receives the note data
-    server-->>browser: HTTP response (success/failure)
+    server-->>browser: { "status": "success", "id": "420" }
     deactivate server
 
-    Note right of browser: Browser updates the UI
-    Note right of browser: New note is rendered in the list
-    ```
+    Note right of browser: The browser executes the callback function that renders the notes
+```

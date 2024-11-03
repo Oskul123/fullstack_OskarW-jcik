@@ -1,4 +1,4 @@
-'''mermaid
+```mermaid
 sequenceDiagram
     participant browser
     participant server
@@ -26,4 +26,4 @@ sequenceDiagram
     deactivate server
 
     Note right of browser: The SPA renders the list of notes based on the fetched JSON data
-'''
+```
